@@ -15,8 +15,9 @@
       <tr>
         <td><%= link_to topic.title, topic %></td>
         <td><%= pluralize(topic.votes.count, "vote") %></td>
-        <td><%= button_to '+1', upvote_topic_path(topic), method: :post %></td>
-         <td><%= button_to '-1', downvote_topic_path(topic), method: :post %></td>
+        <td><%= button_to '+1', upvote_topic_path(topic), method: :post %>
+        </td>
+        <td><%= button_to '-1', downvote_topic_path(topic), method: :post %></td>
         <td><%= link_to 'Delete', topic, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -26,3 +27,6 @@
 <br>
 
 <%= link_to 'New Topic', new_topic_path %>
+<!--direction: is my variable, it can be used in the controller as params[:direction] -->
+<%= link_to '&darr; Sort'.html_safe, sorted_topics_path(direction: 'desc') %> 
+<%= link_to '&uarr; Sort'.html_safe, sorted_topics_path(direction: 'asc') %>

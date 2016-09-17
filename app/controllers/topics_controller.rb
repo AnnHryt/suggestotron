@@ -4,7 +4,7 @@ class TopicsController < ApplicationController
   # GET /topics
   # GET /topics.json
   def index
-    @topics = Topic.all
+    @topics = Topic.order('lower(title)' )
   end
 
   # GET /topics/1
@@ -20,6 +20,11 @@ class TopicsController < ApplicationController
   # GET /topics/1/edit
   def edit
   end
+
+  def sorted 
+    @topics = Topic.sorted(params[:direction])
+    render 'index'
+  end  
 
   # POST /topics
   # POST /topics.json
@@ -63,15 +68,13 @@ class TopicsController < ApplicationController
   
   def upvote
     @topic = Topic.find(params[:id])
-    @topic.votes.create
+    @topic.upvote
     redirect_to(topics_path)
   end
  
  def downvote
     @topic = Topic.find(params[:id])
-    if @topic.votes.exists?
-    @topic.votes.first.destroy
-    end
+    @topic.downvote
     redirect_to(topics_path)
   end
 
