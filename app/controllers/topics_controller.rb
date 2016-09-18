@@ -1,12 +1,6 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
 
-  # GET /topics
-  # GET /topics.json
-  def index
-    @topics = Topic.order('lower(title)' )
-  end
-
   # GET /topics/1
   # GET /topics/1.json
   def show
@@ -21,7 +15,7 @@ class TopicsController < ApplicationController
   def edit
   end
 
-  def sorted 
+  def index 
     @topics = Topic.sorted(params[:direction])
     render 'index'
   end  
