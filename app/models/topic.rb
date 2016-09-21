@@ -15,7 +15,7 @@ class Topic < ApplicationRecord
   end
 
   def upvote
-      votes.create
+    votes.create
   end
     
   def downvote

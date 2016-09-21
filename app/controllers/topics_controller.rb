@@ -62,7 +62,9 @@ class TopicsController < ApplicationController
   
   def upvote
     @topic = Topic.find(params[:id])
-    @topic.upvote
+    @vote = @topic.upvote
+    @vote.user_id = current_user.id
+    @vote.save!
     redirect_to(topics_path)
   end
  
