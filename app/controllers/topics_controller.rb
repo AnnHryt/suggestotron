@@ -62,15 +62,19 @@ class TopicsController < ApplicationController
   
   def upvote
     @topic = Topic.find(params[:id])
+    unless @topic.votes.where(user_id: current_user.id).exists?
     @vote = @topic.upvote
     @vote.user_id = current_user.id
     @vote.save!
+    end
     redirect_to(topics_path)
   end
  
  def downvote
     @topic = Topic.find(params[:id])
+    if @topic.votes.where(user_id: current_user.id).exists?
     @topic.downvote
+    end
     redirect_to(topics_path)
   end
 
